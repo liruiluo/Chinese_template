@@ -1,0 +1,142 @@
+\chapter{常见需求实现}
+本章介绍一些模板功能之外的常见需求的实现方法。
+ 
+\section{表格}
+\label{sec:table}
+
+\subsection{基本三线表}
+在学术文档中，通常需要使用三线表，且表格的表序和标题应位于表格的上方，基本用法如表~\ref{tab:example-table-basic}所示。通过导入 \verb|booktabs| 宏包，可以使用 \verb|\toprule|、\verb|\midrule| 和 \verb|\bottomrule| 来控制表格的三条水平线。
+
+\begin{table*}[htb]
+    \centering
+    \caption{基本三线表。}
+    \label{tab:example-table-basic}
+    \begin{small}
+    \begin{tabular}{@{}lccccc@{}}
+        \toprule[1.5pt]
+        & \textbf{X} & \textbf{Y} & \textbf{Z} & \textbf{N} & \textbf{M} \\
+        \midrule[1pt]
+        默认        & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
+        \quad w/o X   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
+        \quad w/o Y   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
+        \quad w/o Z   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
+        \quad w/o N   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
+        \quad w/o M   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
+        \bottomrule[1.5pt]
+    \end{tabular}
+    \end{small}
+\end{table*}
+
+\subsection{带脚注的三线表}
+如果需要在表格中注明数据来源或添加脚注，可通过在\texttt{minipage}环境中嵌套\texttt{tabular}环境来实现，如表~\ref{tab:example-table-footnote}所示。
+
+\begin{table*}[htb]
+    \centering
+    \begin{minipage}[t]{0.55\linewidth} %
+        \caption{带脚注的三线表。}
+        \label{tab:example-table-footnote}
+        \begin{small}
+        \begin{tabular}{@{}lccccc@{}}
+            \toprule[1.5pt]
+            & \textbf{X} & \textbf{Y} & \textbf{Z} & \textbf{N} & \textbf{M} \\
+            \midrule[1pt]
+                默认        & 99.99 & 99.99 & 99.99 & 99.99\footnote{表格中的脚注1} & 99.99 \\
+            \quad w/o X   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
+            \quad w/o Y   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
+            \quad w/o Z   & 99.99\footnote{表格中的脚注2} & 99.99 & 99.99 & 99.99 & 99.99 \\
+            \quad w/o N   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
+            \quad w/o M   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
+            \bottomrule[1.5pt]
+        \end{tabular}
+        \end{small}
+        \\[6pt] \footnotesize 注：数据来源示例。\\
+    \end{minipage}
+\end{table*}
+
+\subsection{多级表头效果的三线表}
+如果需要实现多级表头效果，可以通过导入 \verb|multirow| 宏包，使用 \verb|\multirow| 和 \verb|\multicolumn| 命令来控制表头的合并效果，如表~\ref{tab:example-table-multi}所示。
+\begin{table*}[htbp]
+    \centering
+    \caption{多级表头效果的三线表。}
+    \label{tab:example-table-multi}
+    \begin{small}
+    \begin{tabular}{@{}l|ccc|ccc@{}}
+    \toprule
+    \multirow{2}{*}{\textbf{Model}} & \multicolumn{3}{c|}{\textbf{数据集A}} & \multicolumn{3}{c}{\textbf{数据集B}} \\ \cmidrule(l){2-7} 
+    & \textbf{指标a}(\%) & \textbf{指标b}(\%) & \textbf{指标c} & \textbf{指标a} (\%) & \textbf{指标b}(\%) & \textbf{指标c} \\ \midrule
+        模型A      &99.99  & 99.99  & 99.99  &99.99  & 99.99  & 99.99  \\
+        模型B      &99.99  & 99.99  & 99.99  &99.99  & 99.99  & 99.99  \\
+    \bottomrule
+    \end{tabular}
+    \end{small}
+\end{table*}
+
+\subsection{续表形式的三线表}
+当表格较大，不能在一页内显示时，可以使用 \verb|longtable| 宏包，以"续表"的形式将表格分布到多个页面上，如表~\ref{tab:example-table-continue}所示。
+
+\begin{small}
+\begin{longtable}[c]{c*{7}{r}}
+    \caption{续表形式的三线表。}
+    \label{tab:example-table-continue}\\
+    \toprule[1.5pt]
+     \multicolumn{1}{c}{年龄} & 性别 & \multicolumn{1}{c}{类型} & \multicolumn{1}{c}{数值1} & \multicolumn{1}{c}{数值2}
+    & \multicolumn{1}{c}{数值3} & \multicolumn{1}{c}{数值4} & \multicolumn{1}{c}{数值5} \\
+    \multicolumn{1}{c}{(岁)} & & \multicolumn{1}{c}{}&
+    \multicolumn{1}{c}{}& \multicolumn{1}{c}{}& \multicolumn{1}{c}{
+       }& 状态 & 最大值 \\\midrule[1pt]
+    \endfirsthead
+    \multicolumn{8}{c}{续表~\thetable\hskip1em 续表示例。}\\
+    \toprule[1.5pt]
+     \multicolumn{1}{c}{年龄} & 性别 & \multicolumn{1}{c}{类型} & \multicolumn{1}{c}{数值1} & \multicolumn{1}{c}{数值2}
+    & \multicolumn{1}{c}{数值3} & \multicolumn{1}{c}{数值4} & \multicolumn{1}{c}{数值5} \\
+    \multicolumn{1}{c}{(岁)} & & \multicolumn{1}{c}{}&
+    \multicolumn{1}{c}{}& \multicolumn{1}{c}{}& \multicolumn{1}{c}{
+       }& 状态 & 最大值 \\\midrule[1pt]
+    \endhead
+    \hline
+    \multicolumn{8}{r}{续下页}
+    \endfoot
+    \endlastfoot
+    25 & 男 & A & 145 & 233 & 1 & 0 & 150 \\
+    30 & 女 & B & 130 & 250 & 0 & 1 & 187 \\
+    35 & 男 & A & 130 & 204 & 0 & 0 & 172 \\
+    40 & 女 & C & 120 & 236 & 0 & 1 & 178 \\
+    45 & 男 & B & 120 & 354 & 0 & 1 & 163 \\
+    50 & 女 & A & 140 & 192 & 0 & 1 & 148 \\
+    55 & 男 & C & 140 & 294 & 0 & 0 & 153 \\
+    60 & 女 & B & 120 & 263 & 0 & 1 & 173 \\
+    \bottomrule[1.5pt]
+\end{longtable}
+\footnotesize 注：示例数据。
+\end{small}
+
+\section{图片}
+\label{sec:figure}
+
+与表格相反，图序和图名需要位于图片的下方。
+如果含有子图，每个子图需要具有相应的子图名。
+
+\subsection{插入单个独立的图片}
+这里展示如何插入一个简单的图片。实际使用时，请将图片文件放在合适的位置。
+
+\subsection{并排插入多个独立的图片}
+如果需要并排插入多个独立的图片，分别编排图序，则可使用\verb|minipage|环境。
+
+\subsection{插入具有多个子图的图片}
+如果需要插入具有多个子图的图片，推荐使用\verb|subcaption|宏包。
+
+也可以使用\verb|subfloat|宏包，代码更简短，但是不如\verb|subcaption|宏包灵活。
+
+\section{公式}
+\label{sec:equation}
+
+公式部分考虑到写作指南中无关于公式页的说明，并未做改动，使用通用\LaTeX{}规范即可。对于复杂公式需求，可使用\verb|amsmath|宏包结合Mathpix\footnote{\url{https://mathpix.com/}}等自动化识别工具。
+
+\begin{multline*}
+\int_a^b\biggl\{\int_a^b[f(x)^2g(y)^2+f(y)^2g(x)^2]
+ -2f(x)g(x)f(y)g(y)\,dx\biggr\}\,dy \\
+ =\int_a^b\biggl\{g(y)^2\int_a^bf^2+f(y)^2
+    \int_a^b g^2-2f(y)g(y)\int_a^b fg\biggr\}\,dy
+\end{multline*}
+
+上述公式来源于\citeauthor{liu2003uncertain}的《不确定规划》\cite{liu2003uncertain}。

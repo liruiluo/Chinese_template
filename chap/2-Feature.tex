@@ -1,0 +1,125 @@
+\chapter{模板功能}
+本章对模板提供的功能和配置项进行介绍说明。
+
+\section{文档类选项}
+\label{sec:option}
+
+除非特别说明，否则这一节提到的选项中都是不带"\verb|no|"的版本被启用。
+
+\begin{itemize}
+    \item \textbf{\texttt{[no]cnfont}}：
+        是否使用中文友好的字体配置，包括中西文字体搭配。
+
+    \item \textbf{\texttt{[no]cnfoot}}：
+        是否修改脚注相关格式。
+        具体地说，启用 \verb|cnfoot| 选项后会进行以下几项设置：
+    \begin{itemize}
+        \item 脚注参用带圈的编号。
+        \item 页脚中脚注编号使用正文（而非上标）字体。
+        \item 页脚中脚注编号和脚注文本之间默认间隔一个空格。
+    \end{itemize}
+
+    \item \textbf{\texttt{[no]cnspace}}：
+        是否使用中文文档的排版间距设置。
+        具体地说，启用 \verb|cnspace| 选项后会修改以下几项设置：
+    \begin{itemize}
+        \item 正文的行距。
+        \item 目录中条目的缩进方式。
+        \item 图表标题的字号，以及标题中编号和标题文字之间的间隔方式
+    \end{itemize}
+
+    \item \textbf{\texttt{[no]spacing}}：
+        是否采用一些常用的调整间距的额外版式设定。
+        具体地说，启用 \verb|spacing| 选项后会进行以下几项设置：
+    \begin{itemize}
+        \item 调用 setspace 宏包以使某些细节处的空间安排更美观。
+        \item 采用比 \hologo{LaTeX} 默认设定更加紧密的枚举环境。
+        \item 调整枚举环境的缩进，以适应中文排版中的习惯。
+    \end{itemize}
+
+    \item \textbf{\texttt{[no]spechap}}：
+        是否启用 \verb|\specialchap| 命令用于创建无编号章节。
+
+    \item \textbf{\texttt{[no]pdftoc}}：
+        启用 \verb|pdftoc| 选项后，
+        用 \verb|\tableofcontents| 命令生成目录时会自动添加"目录"的 pdf 书签。
+
+    \item \textbf{\texttt{[no]pdfprop}}：
+        是否自动根据设定的文档信息（如作者、标题等）
+        设置生成的 pdf 文档的相应属性。
+
+    \item \textbf{其余文档类选项}：%
+        chinesedoc 文档类以 ctexbook 文档类为基础，
+        其接受的其余所有文档类选项均被传递给 ctexbook。
+        其中可能最常用的选项是 \verb|fontset| 和 \verb|zihao|，
+        它们选择中文字体和默认字号。
+\end{itemize}
+
+\section{文档信息设定}
+\label{sec:info}
+
+这一类命令的语法为
+\begin{Verbatim}
+  \commandname{具体信息} % commandname 为具体命令的名称。
+\end{Verbatim}
+
+这些命令总结如下：
+\begin{itemize}
+    \item \texttt{\bfseries\string\ctitle}：设定文档中文标题；
+    \item \texttt{\bfseries\string\cauthor}：设定作者的中文名；
+    \item \texttt{\bfseries\string\date}：设定日期；
+    \item \texttt{\bfseries\string\ckeywords}：设定中文关键词；
+    \item \texttt{\bfseries\string\etitle}：设定文档英文标题；
+    \item \texttt{\bfseries\string\eauthor}：设定作者的英文名；
+    \item \texttt{\bfseries\string\ekeywords}：设定英文关键词。
+\end{itemize}
+
+例如，如果要设定作者为"张三"（"Zhang San"），则可以使用以下命令：
+\begin{Verbatim}
+\cauthor{张三}
+\eauthor{Zhang San}
+\end{Verbatim}
+
+\section{摘要}
+\label{sec:abstract}
+
+\texttt{\bfseries cabstract} 和 \texttt{\bfseries eabstract} 环境用于编写
+中英文摘要。
+用户只须要写摘要的正文；标题、作者等部分会自动生成。
+
+\section{目录、表格索引、插图索引}
+\label{sec:directory}
+
+目录使用 \texttt{\bfseries \string\tableofcontents} 命令生成。
+表格索引使用 \texttt{\bfseries \string\listoftables} 命令生成。
+插图索引使用 \texttt{\bfseries \string\listoffigures} 命令生成。
+
+\section{主要符号对照表}
+\label{sec:denotation}
+
+参考\verb|chap/Denotation.tex|即可，在\verb|denotation|环境下，使用\verb|\item[X] Y|分别表示符号及其说明。
+
+\section{参考文献}
+\label{sec:bibtex}
+
+本模板使用\verb|biblatex-gb7714-2015|宏包进行参考文献管理与格式化，并提供相应的个性化配置方法。
+
+\subsection{参考文献标注方式设置}
+如要按 "顺序编码制"标注（\verb|\cite|生成 "[1]、[2]"），使用以下配置：
+\begin{Verbatim}
+\usepackage[backend=biber,style=gb7714-2015,maxbibnames=3,gbnamefmt=lowercase]{biblatex}
+\end{Verbatim}
+如要按 "著者-出版年制"标注（\verb|\cite| 生成 "(赵, 2011)"，\verb|\citet| 生成 "赵 (2011)"），使用以下配置：
+\begin{Verbatim}
+\usepackage[backend=biber,style=gb7714-2015ay,maxcitenames=3,
+maxbibnames=3,gbnamefmt=lowercase]{biblatex}
+\end{Verbatim}
+
+\subsection{正文中的标注格式个性化配置}
+
+可以自定义标注方式下，正文中的标注显示的作者数。
+\begin{itemize}
+    \item \texttt{\bfseries maxcitenames}：控制正文中的标注最多显示的作者数，若超出会显示为"作者1等"。
+    \item \texttt{\bfseries mincitenames}：控制在"等"前显示的作者数量。
+    \item 需满足 \texttt{\bfseries maxcitenames} ≥ \texttt{\bfseries mincitenames}。
+\end{itemize}

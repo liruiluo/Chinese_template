@@ -1,0 +1,68 @@
+\chapter{介绍}
+\label{chap:intro}
+
+\def\GitHubLink{\href{https://github.com/example/chinese-template}{GitHub仓库链接（示例）}}
+
+本文档是一个通用的中文LaTeX文档模板，基于优秀的开源项目修改而成，去除了特定学校和机构的信息，保留了优秀的中文排版功能。
+
+本模板参照中文文档排版的通用规范，在保持良好视觉效果的同时，提供了灵活的配置选项和完整的文档结构。
+模板重写了功能接口，解决了在不同平台上显示中文字体的问题，
+同时提供了一些实用的设置功能，如自定义封面格式、章节样式等。
+
+本模板结构清晰，注释详细，较为易于学习和使用。
+希望它能为需要使用 \hologo{LaTeX} 撰写中文文档的用户提供帮助。
+
+\section{关键文件}
+\begin{itemize}
+    \item \verb|document.tex|：模板的主文件。
+    \item \verb|references.bib|：模板的参考文献库。
+    \item \verb|chinesedoc.cls|：定义chinesedoc文档类。
+    \item \verb|ctex-fontset-chinesefontauto.def|、\verb|ctex-fontset-chinesefontpath.def|：字体配置文件。
+    \item \verb|chap/|：各章节内容。
+\end{itemize}
+
+\section{编译要求}
+本模板仅支持UTF-8文件编码和\hologo{XeLaTeX}编译。
+请确保所有 \verb|tex| 文件为UTF-8编码，并使用\hologo{XeLaTeX}编译。
+
+\section{使用方法}
+
+\subsection{环境配置}
+环境配置：安装TeX Live，配置好LaTeX Workshop扩展（如果使用VSCode）。
+
+下载模板：获取模板文件后，用合适的LaTeX编辑器打开文件夹。
+
+使用模板：打开 \verb|document.tex|，进行编译即可使用。
+
+\subsection{文档定制}
+在 \verb|document.tex| 中修改文档基本信息：
+\begin{itemize}
+    \item \verb|\ctitle{}|：设置文档标题
+    \item \verb|\cauthor{}|：设置作者姓名
+    \item \verb|\date{}|：设置日期
+    \item \verb|\ckeywords{}|：设置关键词
+\end{itemize}
+
+\section{主要特性}
+
+\textbf{功能方面:}
+
+\begin{enumerate}[leftmargin=5em]
+    \item 通用的中文文档格式
+    \item 字体字号以文档类选项形式设置
+    \item 简洁的文档信息设置接口
+    \item 支持表格索引、插图索引
+    \item 支持主要符号对照表
+    \item 规范的脚注样式
+    \item 美观的表格和图片格式
+    \item 支持子图引用格式
+\end{enumerate}
+
+\textbf{格式方面:}
+
+\begin{enumerate}[leftmargin=5em]
+    \item 规范的中文排版格式
+    \item 美观的章节标题样式
+    \item 合理的页面布局和间距
+    \item 默认隐藏超链接的显示效果
+\end{enumerate}
